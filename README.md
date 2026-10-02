@@ -54,17 +54,23 @@ a GTX 1070 is strongly recommended for training).
 ## 3. Data
 
 The experiments use the **CircInteractome** benchmark (37 RBPs, 260,554 circRNA–RBP
-pairs), publicly available at <http://circinteractome.nia.nih.gov/>. Download the
-per-RBP circRNA binding tables and place them under
+pairs), publicly available at <http://circinteractome.nia.nih.gov/>. For each RBP,
+download the "circRNA-RBP interaction" table and export the bound / unbound
+sequence files into
 
 ```
-data/circinteractome/circRNA-RBP/     # one file per RBP
-data/rbp_proteins/rbp_sequences.json  # RBP name -> protein sequence (UniProt)
+data/circinteractome/circRNA-RBP/<RBP>/positive    # bound circRNA sequences
+data/circinteractome/circRNA-RBP/<RBP>/negative    # unbound circRNA sequences
 ```
 
-All intermediate arrays are written to `data/circ_processed/`. These files are
-multi-gigabyte and are **not** distributed with this repository; regenerate them
-with step 1–3 below. To keep data outside the repository, set `RBP_BASE_DIR`:
+`<RBP>` is one of the 37 CircInteractome protein names (AGO1, AGO2, ..., ZC3H7B).
+Protein sequences in `data/rbp_proteins/` are only needed if you re-run the
+name-mapping step; the released model consumes circRNA sequence, K-mer and
+structure features only.
+
+All intermediate arrays are written to `data/circ_processed/` (up to ~5 GB). They
+are **not** distributed with this repository; regenerate them with step 1–3 below.
+To keep data outside the repository, set `RBP_BASE_DIR`:
 
 ```bash
 export RBP_BASE_DIR=/path/to/your/workspace   # holds data/ and results/
