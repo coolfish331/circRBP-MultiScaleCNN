@@ -1,0 +1,7 @@
+# Core runtime for circRBP-MultiScaleCNN
+# Tested with Python 3.8 / PyTorch 1.10 (CUDA 10.2) and Python 3.13 / PyTorch 2.x (CPU)
+
+torch>=1.10
+numpy>=1.21
+scikit-learn>=1.0
+matplotlib>=3.4

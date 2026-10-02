@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Data and artefacts (multi-GB, regenerate with the preprocessing scripts)
+data/
+results/
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
