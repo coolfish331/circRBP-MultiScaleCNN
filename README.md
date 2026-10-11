@@ -1,6 +1,6 @@
 # circRBP-MultiScaleCNN
 
-Reference implementation of the lightweight multi-scale CNN for **circRNA–RBP
+Reference implementation of the lightweight multi-scale CNN for **circRNA-RBP
 interaction prediction** described in the manuscript submitted to
 *Journal of Cheminformatics*.
 
@@ -32,12 +32,12 @@ code_release/
 │   ├── train_full_runner.py            # drives train_full.py, resumes automatically
 │   ├── run_ablation.py                 # 4 variants: seq / +kmer / +struct / full
 │   ├── evaluate.py                     # pooled test metrics (AUROC, AUPRC, MCC, Acc)
-│   └── eval_per_rbp.py                 # per-RBP breakdown (35 evaluable RBPs)
+│   └── eval_per_rbp.py                 # per-RBP breakdown (35 retained RBPs)
 ├── scripts/
 │   ├── plot_training_curves.py         # loss + val AUROC/AUPRC curves
 │   ├── plot_ablation.py                # four-variant ablation figure
 │   ├── plot_per_rbp_ranked.py          # ranked per-RBP AUROC bar chart (Figure S1)
-│   └── bootstrap_macro_ci.py           # 10,000-fold bootstrap CI over the 35 RBPs
+│   └── bootstrap_macro_ci.py           # 10,000-fold bootstrap CI over the 35 retained RBPs
 ├── requirements.txt
 └── LICENSE
 ```
@@ -53,8 +53,12 @@ a GTX 1070 is strongly recommended for training).
 
 ## 3. Data
 
-The experiments use the **CircInteractome** benchmark (37 RBPs, 260,554 circRNA–RBP
-pairs), publicly available at <http://circinteractome.nia.nih.gov/>. For each RBP,
+The experiments use the **CircInteractome** benchmark (37 RBPs as distributed,
+publicly available at <http://circinteractome.nia.nih.gov/>). Two RBPs are
+excluded by `preprocess_circinteractome.py`: **LIN28B** (only 88 negative
+sequences, below the 100-per-class minimum) and **ZC3H7B** (no matching protein
+sequence retrievable). The remaining **35 RBPs** yield the 260,554 circRNA-RBP
+pairs used in the manuscript. For each RBP,
 download the "circRNA-RBP interaction" table and export the bound / unbound
 sequence files into
 
@@ -63,7 +67,8 @@ data/circinteractome/circRNA-RBP/<RBP>/positive    # bound circRNA sequences
 data/circinteractome/circRNA-RBP/<RBP>/negative    # unbound circRNA sequences
 ```
 
-`<RBP>` is one of the 37 CircInteractome protein names (AGO1, AGO2, ..., ZC3H7B).
+`<RBP>` is one of the 37 CircInteractome protein names (AGO1, AGO2, ...,
+ZC3H7B); 35 of them survive the filtering step described above.
 Protein sequences in `data/rbp_proteins/` are only needed if you re-run the
 name-mapping step; the released model consumes circRNA sequence, K-mer and
 structure features only.
@@ -119,7 +124,7 @@ Split: 70 / 15 / 15 train / validation / test, `seed = 42`, 260,554 samples.
 | Full (30 ep) | 0.9574 | 0.9589 | 0.7897 | 0.8937 | 80,833 |
 | **Full (70 ep, reported)** | **0.9691** | **0.9694** | **0.8315** | **0.9152** | 80,833 |
 
-Per-RBP breakdown over the 35 evaluable RBPs: macro-averaged AUROC 0.9736
+Per-RBP breakdown over the 35 retained RBPs: macro-averaged AUROC 0.9736
 (95% CI 0.9643–0.9818), macro-averaged MCC 0.8484 (95% CI 0.8204–0.8741);
 sample-pooled AUROC 0.9691.
 
