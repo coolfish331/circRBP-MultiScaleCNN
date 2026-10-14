@@ -3,8 +3,8 @@
 precompute_structure_full.py — 全量 RNA 二级结构特征预计算
 ================================================================
 
-输入:  X_circrna.npy  (260554, 501, 4) — full one-hot circRNA sequences
-输出:  S_full.npy      (260554, 501, 5) — structural encoding
+输入:  X_circrna.npy  (270554, 501, 4) — full one-hot circRNA sequences
+输出:  S_full.npy      (270554, 501, 5) — structural encoding
 
 结构编码 (5 通道 one-hot):
   Channel 0: (  (paired, 5' 侧, stem start)

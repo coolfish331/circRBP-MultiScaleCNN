@@ -25,7 +25,7 @@ val_auprc  = [r['val_auprc'] if 'val_auprc' in r else r.get('val_auprc', r['val_
 val_mcc    = [r['val_mcc']   for r in hist]
 
 best_ep  = h['best_ep']        # 70
-best_auc = h['best_auc']       # 0.9691
+best_auc = h['best_auc']       # 0.9675
 
 # ---- 画图 ----
 fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))

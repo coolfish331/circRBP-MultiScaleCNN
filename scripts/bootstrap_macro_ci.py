@@ -1,4 +1,4 @@
-"""Aggregate-level CI for per-RBP reporting. Bootstrap by resampling the 35 RBPs."""
+"""Aggregate-level CI for per-RBP reporting. Bootstrap by resampling the 36 RBPs."""
 BASE_DIR = os.environ.get("RBP_BASE_DIR", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import json, numpy as np
 from pathlib import Path
@@ -32,7 +32,7 @@ out = {
             "ci_high": float(ci_u[j]), "sd": float(sd[j])}
         for j, n in enumerate(names)
     },
-    "note": "Bootstrap CI on the macro-mean (i.e., across 35 RBPs, "
+    "note": "Bootstrap CI on the macro-mean (i.e., across 36 RBPs, "
             "re-sampled with replacement B=10000). Estimates the stability "
             "of the unweighted mean across RBPs, NOT the within-sample CI.",
 }

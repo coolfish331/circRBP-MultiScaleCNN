@@ -281,7 +281,7 @@ def main():
         print(f"  TEST MCC:   {ts_mcc:.4f}")
 
         results = {
-            'method': 'GPU: CNN(multi-scale)+K-mer(3+4-mer)+Structure(Nussinov) Fusion (full 37 RBP)',
+            'method': 'GPU: CNN(multi-scale)+K-mer(3+4-mer)+Structure(Nussinov) Fusion (full 36 RBP)',
             'device': DEVICE, 'batch_size': BATCH_SIZE,
             'test_auc': float(ts_auc), 'test_auprc': float(ts_auprc),
             'test_mcc': float(ts_mcc),

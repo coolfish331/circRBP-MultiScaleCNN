@@ -3,8 +3,8 @@
 precompute_kmer_full.py — 全量 K-mer 频率特征预计算
 ================================================================
 
-输入:  X_circrna.npy  (260554, 501, 4) — full one-hot circRNA sequences
-输出:  K_full.npy      (260554, 320)    — 3-mer(64) + 4-mer(256) 归一化频率
+输入:  X_circrna.npy  (270554, 501, 4) — full one-hot circRNA sequences
+输出:  K_full.npy      (270554, 320)    — 3-mer(64) + 4-mer(256) 归一化频率
 
 原理:
   从 one-hot 序列中提取 3-mer 和 4-mer 的全局频率向量，用矩阵运算避免循环。

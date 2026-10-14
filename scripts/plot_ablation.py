@@ -9,7 +9,7 @@ Reproduces the paper figure:
 Usage
 -----
     python scripts/plot_ablation.py                     # reads <repo>/results/ablation_summary.json
-    python scripts/plot_ablation.py --reference-mcc 0.8315 --reference-auroc 0.9691
+    python scripts/plot_ablation.py --reference-mcc 0.8269 --reference-auroc 0.9688
 """
 
 import argparse
@@ -45,7 +45,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--summary", default=os.path.join(BASE_DIR, "results", "ablation_summary.json"))
     p.add_argument("--out", default=os.path.join(BASE_DIR, "results", "figures", "ablation_comparison.png"))
-    p.add_argument("--reference-mcc", type=float, default=0.8315,
+    p.add_argument("--reference-mcc", type=float, default=0.8269,
                    help="MCC of the full model at epoch 70 (drawn as a reference line)")
     args = p.parse_args()
 

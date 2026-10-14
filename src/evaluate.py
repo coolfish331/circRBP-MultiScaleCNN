@@ -138,7 +138,7 @@ def main():
     # 保存结果
     result = {
         'method': 'CNN(multi-scale)+K-mer(3+4-mer)+Structure(Nussinov) Fusion',
-        'dataset': 'CircInteractome (37 RBP, 260,554 samples)',
+        'dataset': 'CircInteractome (36 RBP, 270,554 samples)',
         'model': 'gpu_full_best.pt (ep70)',
         'train/val/test': '70/15/15 (seed=42)',
         'test_samples': int(len(labels_arr)),

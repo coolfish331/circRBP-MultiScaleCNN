@@ -1,7 +1,7 @@
 """
 =============================================================
 circ_preprocess.py — circRNA-RBP 交互数据预处理
-功能：加载 CircInteractome 数据集（37 RBP），生成训练/测试数据
+功能：加载 CircInteractome 数据集（37 个 RBP 目录，预处理后保留 36 个），生成训练/测试数据
 =============================================================
 """
 import os, json, re
@@ -97,10 +97,19 @@ def load_circ_data():
         if mapped not in proteins:
             mapped2 = UNIPROT_MAP.get(rbp, rbp)
             if mapped2 not in proteins:
-                print(f"  WARNING: No protein sequence for {rbp} (tried {mapped}, {mapped2})")
-                continue
-            mapped = mapped2
-        protein_seq = proteins[mapped]
+                # NOTE(2026-10-11): 蛋白序列仅用于 rbp_proteins.json 的旁证信息，
+                # 本模型（纯 RNA 三分支）并不使用它。缺失时只告警、不再整体跳过该 RBP，
+                # 否则会因一次外部检索失败而白白丢掉上万条可用样本（如 ZC3H7B）。
+                print(f"  WARNING: No protein sequence for {rbp} (tried {mapped}, {mapped2}); "
+                      f"keeping the RBP with an empty protein string.")
+                protein_seq = ''
+                mapped = None
+            else:
+                mapped = mapped2
+        if mapped is not None:
+            protein_seq = proteins[mapped]
+        else:
+            protein_seq = ''
 
         pos_seqs = []
         neg_seqs = []

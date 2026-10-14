@@ -7,7 +7,7 @@ Reproduces the per-protein table reported in the paper (35 evaluable RBPs):
   * sample-pooled AUROC / MCC over all test samples.
 
 Split is identical to training: permutation with seed 42, 70 / 15 / 15
-(train / validation / test) over the 260,554 CircInteractome samples.
+(train / validation / test) over the 270,554 CircInteractome samples.
 
 Usage
 -----
