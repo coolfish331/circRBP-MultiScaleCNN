@@ -11,6 +11,13 @@ Usage
 -----
     python scripts/plot_per_rbp_ranked.py
     python scripts/plot_per_rbp_ranked.py --out figures/fig_per_rbp_ranked.pdf
+
+The figure geometry is parameterised so that the same data can be rendered at
+the exact size at which it will be printed.  The default values reproduce the
+tall stand-alone figure; for the supplementary PDF (A4, 1-in margins) the
+figure must be generated at the print size, i.e. ``--fig-width 6.36
+--bar-h 0.18 --pad 1.39``, otherwise the image is taller than the text
+block and the caption is pushed off the bottom of the page.
 """
 
 import argparse
@@ -28,6 +35,14 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--results", default=os.path.join(BASE_DIR, "results", "per_rbp_results.json"))
     p.add_argument("--out", default=os.path.join(BASE_DIR, "results", "figures", "fig_per_rbp_ranked.pdf"))
+    p.add_argument("--fig-width", type=float, default=7.0,
+                   help="figure width in inches (default 7.0)")
+    p.add_argument("--bar-h", type=float, default=0.30,
+                   help="height of one RBP row in inches (default 0.30)")
+    p.add_argument("--pad", type=float, default=1.6,
+                   help="extra vertical space beyond the bars, in inches (default 1.6)")
+    p.add_argument("--ytick-size", type=float, default=8.0,
+                   help="font size of the RBP tick labels (default 8)")
     args = p.parse_args()
 
     with open(args.results, encoding="utf-8") as f:
@@ -46,8 +61,8 @@ def main():
     macro = summary["macro_AUROC"]
     pooled = summary["overall"]["AUROC"]
 
-    fig_h = 0.30 * len(names) + 1.6
-    fig, ax = plt.subplots(figsize=(7.0, fig_h))
+    fig_h = args.bar_h * len(names) + args.pad
+    fig, ax = plt.subplots(figsize=(args.fig_width, fig_h))
     y = range(len(names))
     ax.barh(list(y), vals, color="#4C72B0", height=0.72, edgecolor="none")
     ax.axvline(macro, color="#C44E52", ls="--", lw=1.4,
@@ -56,7 +71,7 @@ def main():
                label="Sample-pooled AUROC = %.4f" % pooled)
 
     ax.set_yticks(list(y))
-    ax.set_yticklabels(names, fontsize=8)
+    ax.set_yticklabels(names, fontsize=args.ytick_size)
     ax.set_xlim(0.86, 1.005)
     ax.set_xlabel("AUROC", fontsize=10)
     ax.set_title("Per-RBP AUROC on the CircInteractome test set (%d RBPs)" % len(names), fontsize=10)
